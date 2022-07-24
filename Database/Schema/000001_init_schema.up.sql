@@ -4,7 +4,7 @@ EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE SCHEMA tenant_one;
 CREATE SCHEMA tenant_two;
 
-CREATE TABLE "tenant_one.User"
+CREATE TABLE tenant_one."User"
 (
     "Id"        uuid PRIMARY KEY     DEFAULT uuid_generate_v4(),
     "Password"  varchar     NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE "tenant_one.User"
     "UpdatedAt" timestamptz          DEFAULT (null)
 );
 
-CREATE TABLE "tenant_two.User"
+CREATE TABLE tenant_two."User"
 (
     "Id"        uuid PRIMARY KEY     DEFAULT uuid_generate_v4(),
     "Password"  varchar     NOT NULL,
