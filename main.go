@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"multi-tenant-postgres/Controller"
 	"multi-tenant-postgres/Database"
-	"multi-tenant-postgres/Repository"
 )
 
 func main() {
@@ -15,8 +15,9 @@ func main() {
 	}
 	defer database.Close()
 
+	controller := Controller.NewUserController(database)
 	router := gin.Default()
-	router.PUT("/create-order/", Repository.InsertUserMultiSchema)
+	router.PUT("/create-order/", controller.MigrateUp)
 	router.Run()
 
 }
