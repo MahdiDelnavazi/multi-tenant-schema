@@ -19,6 +19,16 @@ func (db *Database) CreateNewTenant(tenant string) error {
 	return nil
 }
 
+// CreateUUID for create new user table in tenant
+func (db *Database) CreateUUID() error {
+	query := fmt.Sprintf(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`)
+	_, err := db.NameSpace.Exec(query)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // CheckSchemaExist check if schema exist or not
 func (db *Database) CheckSchemaExist(tenant string) error {
 	query := fmt.Sprintf(`SELECT schema_name FROM information_schema.schemata WHERE schema_name = %s;`, tenant)
@@ -38,7 +48,11 @@ func (db *Database) CheckSchemaExist(tenant string) error {
 
 // CreateUserTable for create new user table in tenant
 func (db *Database) CreateUserTable(tenant string) error {
-	_, err := db.NameSpace.Exec(`create table if not exists $1."User"();`, tenant)
+	query := fmt.Sprintf(`create table if not exists %s."User"("Id" uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    	"Password"  varchar     NOT NULL,
+    	"UserName"  varchar     NOT NULL);`, tenant)
+
+	_, err := db.NameSpace.Exec(query)
 	if err != nil {
 		return err
 	}

@@ -8,9 +8,7 @@ CREATE TABLE tenant_one."User"
 (
     "Id"        uuid PRIMARY KEY     DEFAULT uuid_generate_v4(),
     "Password"  varchar     NOT NULL,
-    "UserName"  varchar     NOT NULL,
-    "CreatedAt" timestamptz NOT NULL DEFAULT (now()),
-    "UpdatedAt" timestamptz          DEFAULT (null)
+    "UserName"  varchar     NOT NULL
 );
 
 CREATE TABLE tenant_two."User"
