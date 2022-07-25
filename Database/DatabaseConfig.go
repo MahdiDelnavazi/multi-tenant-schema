@@ -17,8 +17,8 @@ type Database struct {
 	// underlying connections - safe for concurrent use by multiple
 	// goroutines -, with freeing/creation of new connections all managed
 	// by `sql/database` package.
-	Db  *sql.DB
-	cfg Config
+	NameSpace *sql.DB
+	cfg       Config
 }
 
 // Config holds the configuratione.
@@ -71,7 +71,7 @@ func New(cfg Config) (database Database, err error) {
 		return
 	}
 
-	database.Db = db
+	database.NameSpace = db
 	return
 }
 
@@ -79,11 +79,11 @@ func New(cfg Config) (database Database, err error) {
 // `sql/database` DB pool created. This is usually meant
 // to be used in the exitting of a program or `panic`ing.
 func (r *Database) Close() (err error) {
-	if r.Db == nil {
+	if r.NameSpace == nil {
 		return
 	}
 
-	if err = r.Db.Close(); err != nil {
+	if err = r.NameSpace.Close(); err != nil {
 		err = errors.Wrapf(err,
 			"Errored closing database connection",
 			spew.Sdump(r.cfg))
