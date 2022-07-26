@@ -9,9 +9,9 @@ import (
 	"log"
 )
 
-// CreateNewTenant for create new tenant
-func (db *Database) CreateNewTenant(tenant string) error {
-	query := fmt.Sprintf(`create schema if not exists %s`, tenant)
+// CreateNewSchemaTenant for create new schema tenant
+func (db *Database) CreateNewSchemaTenant(tenantName string) error {
+	query := fmt.Sprintf(`create schema if not exists %s`, tenantName)
 	_, err := db.NameSpace.Exec(query)
 	if err != nil {
 		return err

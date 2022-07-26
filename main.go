@@ -17,7 +17,8 @@ func main() {
 
 	controller := Controller.NewUserController(database)
 	router := gin.Default()
-	router.POST("/migrate-up/", controller.MigrateUp)
+	router.POST("/schema-migrate-up/", controller.SchemaMigrateUp)
+	router.POST("/database-migrate-up/", controller.DatabaseMigrateUp)
 	router.Run()
 
 }

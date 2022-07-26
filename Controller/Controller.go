@@ -15,13 +15,17 @@ func NewUserController(db Database.Database) *Controller {
 	return &Controller{db: db}
 }
 
-func (controller *Controller) MigrateUp(context *gin.Context) {
+func (controller *Controller) DatabaseMigrateUp(context *gin.Context) {
+
+}
+
+func (controller *Controller) SchemaMigrateUp(context *gin.Context) {
 	//tenantName := context.GetHeader("tenant-name")
 	for i := 0; i <= 10; i++ {
 		log.Println("create tenant")
 		tenantName := fmt.Sprintf("tenant%d", i)
 
-		err := controller.db.CreateNewTenant(tenantName)
+		err := controller.db.CreateNewSchemaTenant(tenantName)
 		if err != nil {
 			log.Println("query error create new tenant : ", err)
 			return
