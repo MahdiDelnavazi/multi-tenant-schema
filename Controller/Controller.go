@@ -15,10 +15,6 @@ func NewUserController(db Database.Database) *Controller {
 	return &Controller{db: db}
 }
 
-func (controller *Controller) DatabaseMigrateUp(context *gin.Context) {
-
-}
-
 func (controller *Controller) SchemaMigrateUp(context *gin.Context) {
 	//tenantName := context.GetHeader("tenant-name")
 	for i := 0; i <= 10; i++ {
